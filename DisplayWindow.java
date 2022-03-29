@@ -8,15 +8,14 @@ class DisplayWindow extends JFrame{
     super();
     this.display=display;
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //this.setUndecorated ( true );
-    //GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    //this.setBounds(env.getMaximumWindowBounds());
-    this.setTitle("Blocky 2d Art Maker");
-    this.setResizable(false);
-    //this.setLocationRelativeTo(null);
-    this.getContentPane().add(this.display);
+    this.getContentPane().add(this.display, BorderLayout.CENTER);
     this.pack();
+    this.setSize(200,200);
+    this.setTitle("Blocky 2d Art Maker");
+    this.setLocationRelativeTo(null);
     this.setVisible(true);
+    //this.setResizable(false);
+    
     System.out.println("Done");
   }
 }

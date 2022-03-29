@@ -8,27 +8,21 @@ class DisplayPanel extends JPanel{
   public DisplayPanel(int blockSizePixels, int blocksWide, int blocksTall){
     super();  
     this.blockSizePixels=blockSizePixels;
-    //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //get rid of bar at top TODO: add bar back
-    //this.setUndecorated ( true );
-    //GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    //this.setBounds(env.getMaximumWindowBounds());
 
     //set size & layout
     this.setSize(blockSizePixels*blocksWide, blockSizePixels*blocksTall);
     this.setLayout(new GridLayout(blocksTall,blocksWide));
     this.schematic = new Schematic(blocksTall,blocksWide);
-
-    //various window settings
-    //this.setTitle("Blocky 2d Art Maker");
-    //this.setResizable(false);
-    //this.setLocationRelativeTo(null);
-    this.setVisible(true);
+    schematic.fillTileLayer("imgs/grass"
+    );
+    this.setBackground(Color.RED);
+    this.updateScreen();
   }
 
   public void updateScreen(){
     //this.getContentPane().removeAll()
     this.removeAll();
+    this.validate();
     this.repaint();
     for (int row = 0; row<this.schematic.getTileLayer().length; row++){
       for (int col = 0; col<this.schematic.getTileLayer()[row].length;col++){
