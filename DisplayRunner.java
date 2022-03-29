@@ -11,10 +11,10 @@ class DisplayRunner{
     System.out.println("How many blocks tall would you like?");
     int blocksTall= input.nextInt();
     
-    Display window = new Display(blockSizePixels, blocksWide, blocksTall);
+    DisplayWindow window = new DisplayWindow(new DisplayPanel(blockSizePixels, blocksWide, blocksTall));
 
-    window.getSchematic().fillTileLayer("imgs/grass.png");
-    window.getSchematic().setTile("imgs/test.png",9,3);
-    window.updateScreen();
+    //window.getSchematic().fillTileLayer("imgs/grass.png");
+    //window.getSchematic().setTile("imgs/test.png",9,3);
+    //window.updateScreen();
   }
 }

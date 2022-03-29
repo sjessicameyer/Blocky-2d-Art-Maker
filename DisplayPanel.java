@@ -1,20 +1,18 @@
 import java.awt.*;
 import javax.swing.*;
 
-
-class Display extends JFrame{
+class DisplayPanel extends JPanel{
   private int blockSizePixels;
   private Schematic schematic;
   
-  public Display(int blockSizePixels, int blocksWide, int blocksTall){
+  public DisplayPanel(int blockSizePixels, int blocksWide, int blocksTall){
     super();  
     this.blockSizePixels=blockSizePixels;
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    //get rid of bar at top
-    this.setUndecorated ( true );
-    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    this.setBounds(env.getMaximumWindowBounds());
+    //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //get rid of bar at top TODO: add bar back
+    //this.setUndecorated ( true );
+    //GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    //this.setBounds(env.getMaximumWindowBounds());
 
     //set size & layout
     this.setSize(blockSizePixels*blocksWide, blockSizePixels*blocksTall);
@@ -22,14 +20,15 @@ class Display extends JFrame{
     this.schematic = new Schematic(blocksTall,blocksWide);
 
     //various window settings
-    this.setTitle("Blocky 2d Art Maker");
-    this.setResizable(false);
-    this.setLocationRelativeTo(null);
+    //this.setTitle("Blocky 2d Art Maker");
+    //this.setResizable(false);
+    //this.setLocationRelativeTo(null);
     this.setVisible(true);
   }
 
   public void updateScreen(){
-    this.getContentPane().removeAll();
+    //this.getContentPane().removeAll()
+    this.removeAll();
     this.repaint();
     for (int row = 0; row<this.schematic.getTileLayer().length; row++){
       for (int col = 0; col<this.schematic.getTileLayer()[row].length;col++){
@@ -40,6 +39,7 @@ class Display extends JFrame{
   }
   
   public void setBlockSizePixels(int blockSizePixels){
+    //TODO: rescale images in Schematic https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel 
     this.blockSizePixels=blockSizePixels;
   }
 
