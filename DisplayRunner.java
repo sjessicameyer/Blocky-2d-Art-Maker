@@ -13,7 +13,7 @@ class DisplayRunner{
     
     Display window = new Display(blockSizePixels, blocksWide, blocksTall);
 
-    window.getSchematic().fillTileLayer("imgs/grass.png");
+     window.getSchematic().fillTileLayer("imgs/grass.png");
     window.getSchematic().setTile("imgs/test.png",9,3);
     window.updateScreen();
   }

@@ -11,6 +11,8 @@ class Display extends JFrame{
     this.blockSizePixels=blockSizePixels;
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    //TODO: Add back decoration
+    //TODO: Make resizable
     //get rid of bar at top
     this.setUndecorated ( true );
     GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
