@@ -1,4 +1,3 @@
-import java.awt.*;
 import javax.swing.*;
 
 public class Schematic{
@@ -17,10 +16,18 @@ public class Schematic{
     this.tileLayer= tileLayer;
   }
 
-  public void fillTileLayer(String fillerImgPath){;
+  public void fillTileLayer(Tile tile){;
     for (int row = 0; row <this.tileLayer.length; row++){
       for (int col = 0; col <this.tileLayer[0].length; col++){
-        setTile(fillerImgPath,row,col);
+        setTile(tile,row,col);
+      }
+    }
+  }
+
+  public void fillTileLayer(Tile tile, String key){;
+    for (int row = 0; row <this.tileLayer.length; row++){
+      for (int col = 0; col <this.tileLayer[0].length; col++){
+        setTile(tile,key,row,col);
       }
     }
   }
@@ -33,8 +40,12 @@ public class Schematic{
     return this.tileLayer;
   }
 
-  public void setTile(String imagePath, int row, int col){
-    tileLayer[row][col].setIcon(new ImageIcon(imagePath));
+  public void setTile(Tile tile, int row, int col){
+    tileLayer[row][col].setIcon(tile.getTexture());
+  }
+
+  public void setTile(Tile tile, String key, int row, int col){
+    tileLayer[row][col].setIcon(tile.getTexture(key));
   }
 
   public JLabel getTile(int row, int col){

@@ -15,8 +15,8 @@ class Display extends JFrame{
     //TODO: Make resizable
     //get rid of bar at top
     this.setUndecorated ( true );
-    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    this.setBounds(env.getMaximumWindowBounds());
+    //GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    //this.setBounds(env.getMaximumWindowBounds());
 
     //set size & layout
     this.setSize(blockSizePixels*blocksWide, blockSizePixels*blocksTall);

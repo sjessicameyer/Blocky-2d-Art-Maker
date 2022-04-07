@@ -1,25 +1,34 @@
-import java.util.Dictionary;
-import java.util.Enumeration;
+import java.util.*;
+import javax.swing.*;
 
 public class Tile{
-  private Dictionary<String, String> textures;
-  
-  public Tile(String defaultImgPath, String... otherImgPaths){
-    textures.put("default",defaultImgPath);
-    for (int i=0;i<otherImgPaths.length;i=i+2){
-      textures.put(otherImgPaths[i],otherImgPaths[i+1]);
+  private Dictionary<String, ImageIcon> textures = new Hashtable<String, ImageIcon>();
+
+  public Tile (String defaultImgPath){
+    textures.put("default",new ImageIcon(defaultImgPath));
+  }
+
+  public Tile (String defaultImgPath, String... otherImgs) throws Exception{
+    textures.put("default",new ImageIcon(defaultImgPath));
+    if (otherImgs.length%2==1){
+      throw new IllegalArgumentException("Must enter valid key - tile texture pair");
+    }else{
+      for (int i=0;i<otherImgs.length;i=i+2)
+        textures.put(otherImgs[i],new ImageIcon(otherImgs[i+1]));
     }
   }
 
-  public String getTexture(){
+  public ImageIcon getTexture(){
     return textures.get("default");
   }
-  public String getTexture(String name){
-    //TODO: Add support for if key does not exist in dictionary
+  public ImageIcon getTexture(String name){
+    if (textures.get(name)==null){
+      return textures.get("default");
+    }
     return textures.get(name);
   }
 
   public void setTexture(String name, String imgPath){
-    textures.put(name, imgPath);
+    textures.put(name, new ImageIcon(imgPath));
   }
 }
