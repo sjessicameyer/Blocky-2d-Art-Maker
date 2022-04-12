@@ -15,8 +15,6 @@ class Display extends JFrame{
     //TODO: Make resizable
     //get rid of bar at top
     this.setUndecorated ( true );
-    //GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    //this.setBounds(env.getMaximumWindowBounds());
 
     //set size & layout
     this.setSize(blockSizePixels*blocksWide, blockSizePixels*blocksTall);
@@ -26,7 +24,6 @@ class Display extends JFrame{
     //various window settings
     this.setTitle("Blocky 2d Art Maker");
     this.setResizable(false);
-    this.setLocationRelativeTo(null);
     this.setVisible(true);
   }
 
