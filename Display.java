@@ -5,36 +5,39 @@ import javax.swing.*;
 class Display extends JFrame{
   private int blockSizePixels;
   private Schematic schematic;
+  private JPanel p;
   
   public Display(int blockSizePixels, int blocksWide, int blocksTall){
     super();  
     this.blockSizePixels=blockSizePixels;
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    //TODO: Add back decoration
-    //TODO: Make resizable
-    //get rid of bar at top
-    this.setUndecorated ( true );
-
-    //set size & layout
-    this.setSize(blockSizePixels*blocksWide, blockSizePixels*blocksTall);
-    this.setLayout(new GridLayout(blocksTall,blocksWide));
     this.schematic = new Schematic(blocksTall,blocksWide);
-
-    //various window settings
+    
+    //TODO: Make resizable
+    //window setup
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setTitle("Blocky 2d Art Maker");
     this.setResizable(false);
+    
+    //panel setup
+    p = new JPanel();
+    p.setPreferredSize(new Dimension(blockSizePixels*blocksWide, blockSizePixels*blocksTall));
+    p.setLayout(new GridLayout(blocksTall,blocksWide));
+  
+    //display in window
+    this.add(p);
+    this.pack();
     this.setVisible(true);
   }
 
   public void updateScreen(){
-    this.getContentPane().removeAll();
-    this.repaint();
+    p.removeAll();
     for (int row = 0; row<this.schematic.getTileLayer().length; row++){
       for (int col = 0; col<this.schematic.getTileLayer()[row].length;col++){
-        this.add(this.schematic.getTileLayer()[row][col]);
+        p.add(this.schematic.getTileLayer()[row][col]);
       }
     } 
+    p.revalidate();
+    p.repaint();
     this.setVisible(true);
   }
   
