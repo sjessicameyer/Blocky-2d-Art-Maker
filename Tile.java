@@ -1,5 +1,6 @@
 import java.util.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class Tile{
   private Dictionary<String, ImageIcon> textures = new Hashtable<String, ImageIcon>();
@@ -21,11 +22,23 @@ public class Tile{
   public ImageIcon getTexture(){
     return textures.get("default");
   }
+
+  public ImageIcon getTexture(int sizePx){
+    return new ImageIcon(textures.get("default").getImage().getScaledInstance(sizePx, sizePx, Image.SCALE_SMOOTH));
+  }
+  
   public ImageIcon getTexture(String name){
     if (textures.get(name)==null){
       return textures.get("default");
     }
     return textures.get(name);
+  }
+
+  public ImageIcon getTexture(String name, int sizePx){
+    if (textures.get(name)==null){
+      return new ImageIcon(textures.get("default").getImage().getScaledInstance(sizePx, sizePx, Image.SCALE_SMOOTH));
+    }
+    return new ImageIcon(textures.get(name).getImage().getScaledInstance(sizePx, sizePx, Image.SCALE_SMOOTH));
   }
 
   public void setTexture(String name, String imgPath){

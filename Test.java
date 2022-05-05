@@ -1,21 +1,17 @@
 import java.awt.*;  
 import javax.swing.*;  
 
-public class Test{
+public class Test extends JFrame{
   public Test(){
-    JFrame g = new JFrame();
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setTitle("Blocky 2d Art Maker");
     
-    g.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    g.setTitle("Blocky 2d Art Maker");
-    //g.setResizable(false);
-
-
-    JPanel p = new JPanel();
+    TestPanel p = new TestPanel();
     p.setPreferredSize(new Dimension(300,300));
     p.setBackground(new Color(255,200,200));
 
-    g.getContentPane().add(p);
-    g.pack();
-    g.setVisible(true);
+    getContentPane().add(p);
+    pack();
+    setVisible(true);
   }
 }

@@ -1,60 +1,37 @@
 import java.awt.*;
+import java.awt.image.*;
 import javax.swing.*;
 
 
 class Display extends JFrame{
-  private int blockSizePixels;
-  private Schematic schematic;
-  private JPanel p;
+  private DisplayPanel displayPanel;
   
-  public Display(int blockSizePixels, int blocksWide, int blocksTall){
+  public Display(DisplayPanel displayPanel){
     super();  
-    this.blockSizePixels=blockSizePixels;
-    this.schematic = new Schematic(blocksTall,blocksWide);
-    
+    this.displayPanel=displayPanel;
     //TODO: Make resizable
     //window setup
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setTitle("Blocky 2d Art Maker");
-    this.setResizable(false);
+    //this.setResizable(false);
+    this.setIconImage(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB_PRE));
     
-    //panel setup
-    p = new JPanel();
-    p.setPreferredSize(new Dimension(blockSizePixels*blocksWide, blockSizePixels*blocksTall));
-    p.setLayout(new GridLayout(blocksTall,blocksWide));
-  
-    //display in window
-    this.add(p);
+    //add panel in window
+    this.add(displayPanel);
     this.pack();
     this.setVisible(true);
   }
 
-  public void updateScreen(){
-    p.removeAll();
-    for (int row = 0; row<this.schematic.getTileLayer().length; row++){
-      for (int col = 0; col<this.schematic.getTileLayer()[row].length;col++){
-        p.add(this.schematic.getTileLayer()[row][col]);
-      }
-    } 
-    p.revalidate();
-    p.repaint();
+  public void update(){
+    displayPanel.update();
     this.setVisible(true);
   }
-  
-  public void setBlockSizePixels(int blockSizePixels){
-    this.blockSizePixels=blockSizePixels;
+
+  public DisplayPanel getDisplayPanel(){
+    return this.displayPanel;
   }
 
-  public int getBlockSizePixels(){
-    return this.blockSizePixels;
+  public void setDisplayPanel(DisplayPanel displayPanel){
+  this.displayPanel=displayPanel;  
   }
-
-  public void setSchematic(Schematic schematic){
-    this.schematic=schematic;
-  }
-  
-  public Schematic getSchematic(){
-    return this.schematic;
-  }
-
 }
