@@ -9,6 +9,7 @@ class Display extends JFrame{
   public Display(DisplayPanel displayPanel){
     super();  
     this.displayPanel=displayPanel;
+    this.setIgnoreRepaint(true);
     //TODO: Make resizable
     //window setup
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -19,11 +20,6 @@ class Display extends JFrame{
     //add panel in window
     this.add(displayPanel);
     this.pack();
-    this.setVisible(true);
-  }
-
-  public void update(){
-    displayPanel.update();
     this.setVisible(true);
   }
 

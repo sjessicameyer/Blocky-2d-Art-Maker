@@ -4,14 +4,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-class DisplayPanel extends JPanel implements KeyListener{
+class scrollLogic extends JPanel implements KeyListener{
   private Map map;
   private int xVelocity;
   private int yVelocity;
   private int xOffset;
   private int yOffset;
   
-  public DisplayPanel(Map map){
+  public scrollLogic (Map map){
     super();
     addKeyListener(this);
     setFocusable(true);
@@ -26,7 +26,7 @@ class DisplayPanel extends JPanel implements KeyListener{
   public void updateLoop(){
     while (true){
       synchronized(this) {
-        update(this.getGraphics());
+        this.update(this.getGraphics());
         try {
           wait();
            //Thread.sleep(6);
@@ -37,7 +37,7 @@ class DisplayPanel extends JPanel implements KeyListener{
     }
   }
 
-  public void scrollWindow(int xVelocity, int yVelocity){
+  public void scrollWindow(){
     int leftX = getX()+(int)(getSize().getWidth()-map.getTileLayer()[0].length*map.getTileSizePx())/2 + xOffset;
     int topY = getY()+(int)(getSize().getHeight()-map.getTileLayer().length*map.getTileSizePx())/2 + yOffset;
     
@@ -52,6 +52,8 @@ class DisplayPanel extends JPanel implements KeyListener{
     }else if(topY+yVelocity+map.getTileLayer().length*map.getTileSizePx()<getY()+getSize().getHeight()){
       yVelocity=0;
     }
+
+    
     yOffset+=yVelocity;
     xOffset+=xVelocity;
   }
@@ -68,8 +70,8 @@ class DisplayPanel extends JPanel implements KeyListener{
   @Override
   public void paint(Graphics g) {
     //super.paint(g);
-    scrollWindow(xVelocity, yVelocity);
-      
+    scrollWindow();
+
     //calculate coordinates of top left corner
     int leftX = getX()+(int)(getSize().getWidth()-map.getTileLayer()[0].length*map.getTileSizePx())/2 + xOffset;
     int topY = getY()+(int)(getSize().getHeight()-map.getTileLayer().length*map.getTileSizePx())/2 + yOffset;
@@ -92,16 +94,16 @@ class DisplayPanel extends JPanel implements KeyListener{
     int code = e.getKeyCode();
     switch (code){
       case KeyEvent.VK_DOWN:
-        yVelocity=-8;
+        yVelocity=-10;
         break;
       case KeyEvent.VK_UP:
-        yVelocity=8;
+        yVelocity=10;
         break;
       case KeyEvent.VK_RIGHT:
-        xVelocity=-8;
+        xVelocity=-10;
         break;
       case KeyEvent.VK_LEFT:
-        xVelocity=8;
+        xVelocity=10;
         break;
     }
     notify();
