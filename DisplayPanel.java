@@ -6,33 +6,37 @@ import java.awt.event.KeyListener;
 
 class DisplayPanel extends JPanel implements KeyListener{
   private Map map;
-  private int xVelocity;
-  private int yVelocity;
-  private int xOffset;
-  private int yOffset;
+  private int xVelocity=0;
+  private int yVelocity=0;
+  private int xOffset=0;
+  private int yOffset=0;
+  private boolean keyPressed;
   
   public DisplayPanel(Map map){
     super();
     addKeyListener(this);
     setFocusable(true);
     this.map = map;
-    this.xVelocity=0;
-    this.yVelocity=0;
-    this.xOffset=0;
-    this.yOffset=0;
+    this.keyPressed=false;
     this.setPreferredSize(new Dimension(400,400));
   }
 
   public void updateLoop(){
+    update(getGraphics());
     while (true){
-      synchronized(this) {
-        update(this.getGraphics());
-        try {
-          wait();
-           //Thread.sleep(6);
-        } catch (Exception e) {
+      System.out.println("huj"+keyPressed);
+      if (keyPressed){
+        update(getGraphics());
+        try{
+          Thread.sleep(5);
+        }catch(Exception e){
           e.printStackTrace();
         }
+      }
+      try{
+        Thread.sleep(1);
+      }catch(Exception e){
+        e.printStackTrace();
       }
     }
   }
@@ -88,23 +92,23 @@ class DisplayPanel extends JPanel implements KeyListener{
   }
 
   @Override
-  public synchronized void keyPressed(KeyEvent e) {
+  public void keyPressed(KeyEvent e) {
+    keyPressed=true;
     int code = e.getKeyCode();
     switch (code){
       case KeyEvent.VK_DOWN:
-        yVelocity=-8;
+        yVelocity=-1;
         break;
       case KeyEvent.VK_UP:
-        yVelocity=8;
+        yVelocity=1;
         break;
       case KeyEvent.VK_RIGHT:
-        xVelocity=-8;
+        xVelocity=-1;
         break;
       case KeyEvent.VK_LEFT:
-        xVelocity=8;
+        xVelocity=1;
         break;
     }
-    notify();
   }
 
     @Override
@@ -112,7 +116,8 @@ class DisplayPanel extends JPanel implements KeyListener{
     }
 
     @Override
-    public synchronized void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e) {
+      keyPressed=false;
       int code = e.getKeyCode();
       switch (code){
         case KeyEvent.VK_DOWN:
