@@ -1,16 +1,20 @@
 import java.awt.*;
-import java.awt.image.*;
 import javax.swing.*;
-
+import java.awt.image.*;
 
 class Display extends JFrame{
-  private DisplayPanel displayPanel;
+  private JPanel p;
+  private JScrollPane sp;
+  private MapComponent map;
   
-  public Display(DisplayPanel displayPanel){
+  public Display(Map map){
     super();  
-    this.displayPanel=displayPanel;
-    this.setIgnoreRepaint(true);
-    //TODO: Make resizable
+
+    this.map = new MapComponent(map);
+    this.sp= new JScrollPane(this.map);
+    this.p = new JPanel();
+    p.add(sp);
+    sp.setPreferredSize(new Dimension(200,200));
     //window setup
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setTitle("Blocky 2d Art Maker");
@@ -18,16 +22,8 @@ class Display extends JFrame{
     this.setIconImage(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB_PRE));
     
     //add panel in window
-    this.add(displayPanel);
+    this.add(p);
     this.pack();
     this.setVisible(true);
-  }
-
-  public DisplayPanel getDisplayPanel(){
-    return this.displayPanel;
-  }
-
-  public void setDisplayPanel(DisplayPanel displayPanel){
-  this.displayPanel=displayPanel;  
   }
 }

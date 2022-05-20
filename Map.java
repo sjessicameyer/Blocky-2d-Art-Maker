@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Map {
+public class Map{
   private Image[][] tileLayer;
   private Image[][] itemLayer;
   private int tileSizePx;
