@@ -6,7 +6,7 @@ class DisplayRunner{
   public DisplayRunner(){
     this.input = new Scanner(System.in);
     Map map = new Map(50,50,16);
-    Display display = new Display(map);
+    Display display = new Display(new DisplayPanel(map));
     
     Tile grass = new Tile("imgs/grass.png"); 
     grass.setTexture("dead grass","imgs/dead_grass.png");
@@ -14,7 +14,7 @@ class DisplayRunner{
     for (int i = 0; i < 500; i++){
       map.setTile(grass,"dead grass",(int)(Math.random()*50),(int)(Math.random()*50));
     }
-    display.update(display.getGraphics());
+    display.getDisplayPanel().updateLoop();
     //display.getDisplayPanel().resize(32);
   }
 }

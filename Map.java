@@ -1,6 +1,8 @@
 import java.awt.*;
+import java.awt.image.*;
 
-public class Map{
+public class Map {
+  private BufferedImage image;
   private Image[][] tileLayer;
   private Image[][] itemLayer;
   private int tileSizePx;
@@ -16,12 +18,36 @@ public class Map{
     this.itemLayer= itemLayer;
   }
 
+  public void updateImage(){ 
+    int w = this.getTileLayer()[0].length*this.getTileSizePx(); 
+    int h = this.getTileLayer().length*this.getTileSizePx(); 
+    
+    this.image = new BufferedImage(w,h, BufferedImage.TYPE_INT_ARGB); 
+    Graphics imageGraphics = image.getGraphics(); 
+    //Render tiles from top to bottom, left to right
+    int x = 0;
+    int y = 0;
+    for (Image[] row: this.getTileLayer()){
+      for (Image img: row){
+        imageGraphics.drawImage(img, x, y, null);
+        x += this.getTileSizePx();
+      }
+      x = 0;
+      y += this.getTileSizePx();
+    }
+  }
+
+  public BufferedImage getImage(){
+    return this.image;
+  }
+
   public void fillTileLayer(Tile tile){;
     for (int row = 0; row <this.tileLayer.length; row++){
       for (int col = 0; col <this.tileLayer[0].length; col++){
         setTile(tile,row,col);
       }
     }
+    updateImage();
   }
 
   public void fillTileLayer(Tile tile, String key){
@@ -30,10 +56,12 @@ public class Map{
         setTile(tile,key,row,col);
       }
     }
+    updateImage();
   }
   
   public void setTileLayer(Image[][] tileLayer){
     this.tileLayer=tileLayer;
+    updateImage();
   }
 
   public Image[][] getTileLayer(){
@@ -42,6 +70,7 @@ public class Map{
 
   public void setItemLayer(Image[][] itemLayer){
     this.itemLayer=itemLayer;
+    updateImage();
   }
 
   public Image[][] getItemLayer(){
@@ -50,10 +79,12 @@ public class Map{
 
   public void setTile(Tile tile, int row, int col){
     tileLayer[row][col]=tile.getTexture(tileSizePx);
+    updateImage();
   }
 
   public void setTile(Tile tile, String key, int row, int col){
     tileLayer[row][col]=tile.getTexture(key,tileSizePx);
+    updateImage();
   }
 
   public Image getTile(int row, int col){
@@ -66,6 +97,7 @@ public class Map{
 
   public void setTileSizePx(int tileSizePx){
     this.tileSizePx= tileSizePx;
+    updateImage();
     //needs to be fixed to update tile later
   }
 
