@@ -27,8 +27,7 @@ class DisplayPanel extends JPanel implements KeyListener{
   }
 
   public void updateLoop(){
-    update(getGraphics());
-    
+    update(this.getGraphics());
     while (true){
       long startTime = System.currentTimeMillis();
       if (xVelocity!=0||yVelocity!=0)
@@ -87,6 +86,7 @@ class DisplayPanel extends JPanel implements KeyListener{
   
   @Override
   public void paint(Graphics g) {
+    System.out.println("Painting graphics...");
     //super.paint(g);
     scrollWindow(xVelocity, yVelocity);
 
@@ -94,7 +94,7 @@ class DisplayPanel extends JPanel implements KeyListener{
     int w = map.getTileLayer()[0].length*map.getTileSizePx(); 
     int h = map.getTileLayer().length*map.getTileSizePx(); 
     
-    g.drawImage(map.getImage(), getX()+xOffset-w/4, getY()+yOffset-h/4, null);
+    g.drawImage(map.getImage(), getX()+xOffset-w/4, getY()+yOffset-h/4, this);
 
     /**File outputfile = new File("saved.png");
     try{
