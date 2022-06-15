@@ -1,8 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -43,6 +41,7 @@ class DisplayPanel extends JPanel implements KeyListener{
   }
 
   public void scrollWindow(int xVelocity, int yVelocity){  
+    
     if(leftX+xOffset+xVelocity>getX()){
       xVelocity=0;
     }else if(leftX+xOffset+xVelocity+map.getTileLayer()[0].length*map.getTileSizePx()<getX()+getSize().getWidth()){
@@ -94,14 +93,70 @@ class DisplayPanel extends JPanel implements KeyListener{
     int w = map.getTileLayer()[0].length*map.getTileSizePx(); 
     int h = map.getTileLayer().length*map.getTileSizePx(); 
     
-    g.drawImage(map.getImage(), getX()+xOffset-w/4, getY()+yOffset-h/4, null);
+    Image image = new BufferedImage(w,h, BufferedImage.TYPE_INT_ARGB); 
+    Graphics imageGraphics = image.getGraphics(); 
+    //Render tiles from top to bottom, left to right
+    int x = 0;
+    int y = 0;
+    for (Image[] row: map.getTileLayer()){
+      for (Image img: row){
+        imageGraphics.drawImage(img, x, y, null);
+        x += map.getTileSizePx();
+      }
+      x = 0;
+      y += map.getTileSizePx();
+    }
 
-    /**File outputfile = new File("saved.png");
+    //Render items from top to bottom, left to right
+    x = -8;
+    y = 0;
+    for (Image[] row: map.getItemLayer()){
+      for (Image img: row){
+        imageGraphics.drawImage(img, x, y, null);
+        x += map.getTileSizePx();
+      }
+      x = -8;
+      y += map.getTileSizePx();
+    }
+    g.drawImage(image, getX()+xOffset-w/4, getY()+yOffset-h/4, null);
+  }
+
+  public void saveImage(){
+    //make image
+    int w = map.getTileLayer()[0].length*map.getTileSizePx(); 
+    int h = map.getTileLayer().length*map.getTileSizePx(); 
+    BufferedImage image = new BufferedImage(w,h, BufferedImage.TYPE_INT_ARGB); 
+    Graphics imageGraphics = image.getGraphics(); 
+    //Render tiles from top to bottom, left to right
+    int x = 0;
+    int y = 0;
+    for (Image[] row: map.getTileLayer()){
+      for (Image img: row){
+        imageGraphics.drawImage(img, x, y, null);
+        x += map.getTileSizePx();
+      }
+      x = 0;
+      y += map.getTileSizePx();
+    }
+
+    //Render items from top to bottom, left to right
+    x = -8;
+    y = 0;
+    for (Image[] row: map.getItemLayer()){
+      for (Image img: row){
+        imageGraphics.drawImage(img, x, y, null);
+        x += map.getTileSizePx();
+      }
+      x = -8;
+      y += map.getTileSizePx();
+    }
+    
+    File outputfile = new File("saved.png");
     try{
-      ImageIO.write(offScreenImage, "png", outputfile);
+      ImageIO.write(image, "png", outputfile);
     }catch(Exception e){
       e.printStackTrace();
-    }**/
+    }
   }
 
   @Override
@@ -145,4 +200,8 @@ class DisplayPanel extends JPanel implements KeyListener{
           break;
       }
     }
+
+  public void update(){
+    this.update(this.getGraphics());
+  }
 }

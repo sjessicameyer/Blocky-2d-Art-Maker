@@ -13,10 +13,10 @@ public class Tile{
     setTexture("default", defaultImgPath);
   }
 
-  public Tile (String defaultImgPath, String... otherImgs) throws Exception{
+  public Tile (String defaultImgPath, String... otherImgs){
     setTexture("default", defaultImgPath);
     if (otherImgs.length%2==1){
-      throw new IllegalArgumentException("Must enter valid key - tile texture pair");
+      new IllegalArgumentException("Must enter valid key - tile texture pair").printStackTrace();
     }else{
       for (int i=0;i<otherImgs.length;i=i+2)
         setTexture(otherImgs[i], otherImgs[i+1]);

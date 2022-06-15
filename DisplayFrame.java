@@ -4,14 +4,13 @@ import javax.swing.*;
 import java.awt.event.*;
 
 
-class Display extends JFrame{
+class DisplayFrame extends JFrame{
   private DisplayPanel displayPanel;
   
-  public Display(DisplayPanel displayPanel){
+  public DisplayFrame(DisplayPanel displayPanel){
     super();  
     this.displayPanel=displayPanel;
 
-    
     //window setup
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setTitle("Blocky 2d Art Maker");
@@ -22,7 +21,6 @@ class Display extends JFrame{
     this.add(displayPanel);
     this.pack();
     this.setVisible(true);
-    this.setMaximumSize(new Dimension(displayPanel.getMap().getTileLayer()[0].length*displayPanel.getMap().getTileSizePx(),displayPanel.getMap().getTileLayer().length*displayPanel.getMap().getTileSizePx()));
 
     this.addComponentListener(new ComponentAdapter()
     {  
@@ -33,10 +31,10 @@ class Display extends JFrame{
   }
 
   public DisplayPanel getDisplayPanel(){
-    return this.displayPanel;
+    return displayPanel;
   }
 
-  public void setDisplayPanel(DisplayPanel displayPanel){
-  this.displayPanel=displayPanel;  
+  public void setDisplayPanel(DisplayPanel panel){
+    displayPanel=panel;
   }
 }
