@@ -1,7 +1,16 @@
 import java.util.*;
 import java.awt.*;
 
+/**
+ * Main class for Blocky 2d Art Maker
+ * @author Sar2x
+ * @version 1.0 17/06/2022
+ */
 class Main {
+
+  /**
+   * Main method for Blocky 2d Art Maker, allows you to test the program with a simple, console based UI
+   */
   public static void main(String[] args) {
     DisplayRunner runner = new DisplayRunner();
     Thread run = new Thread(runner);

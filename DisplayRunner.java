@@ -1,10 +1,25 @@
 import java.util.Scanner;
 import java.lang.Math;
 
+/**
+ * Run class for Blocky 2d Art Maker
+ * @author Sar2x
+ * @version 1.0 17/06/2022
+ */
 class DisplayRunner implements Runnable{
+  /**
+	 * The instance of the map displayed by the application.
+	 */
   public Map map;
+
+  /**
+	 * The instance of the panel used for running the application.
+	 */
   public DisplayPanel panel;
-  
+
+  /**
+	 * Builds an instance of DisplayFrame & DisplayPanel, with a randomly generated map composed of grass & dead grass.
+	 */
   public void run(){
     map = new Map(50,50,16);
     panel = new DisplayPanel(map);
